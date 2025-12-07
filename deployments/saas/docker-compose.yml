@@ -1,0 +1,126 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database for customer/bot metadata
+  postgres:
+    image: postgres:15
+    container_name: saas_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-saas_db}
+      POSTGRES_USER: ${POSTGRES_USER:-saas_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    restart: unless-stopped
+    networks:
+      - saas_network
+
+  # Elasticsearch for customer Q&A data
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    container_name: saas_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms${ES_MEMORY_LIMIT:-512m} -Xmx${ES_MEMORY_LIMIT:-512m}"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "${ES_PORT:-9200}:9200"
+    restart: unless-stopped
+    networks:
+      - saas_network
+    mem_limit: ${ES_MEMORY_LIMIT:-512m}
+
+  # SaaS Dashboard (Flask app)
+  dashboard:
+    build:
+      context: ../..
+      dockerfile: deployments/saas/Dockerfile.dashboard
+    container_name: saas_dashboard
+    environment:
+      # Database
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-saas_db}
+      POSTGRES_USER: ${POSTGRES_USER:-saas_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      
+      # Elasticsearch
+      ELASTICSEARCH_HOST: elasticsearch:9200
+      
+      # Flask
+      FLASK_ENV: ${FLASK_ENV:-production}
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      
+      # Platform settings
+      PLATFORM_DOMAIN: ${PLATFORM_DOMAIN:-localhost}
+      NETWORK_NAME: ${NETWORK_NAME:-saas_network}
+      
+      # Telegram
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      
+      # AI Provider (for customer bots)
+      DEPLOYMENT: ${DEPLOYMENT:-local}
+      USE_LOCAL_MODELS: ${USE_LOCAL_MODELS:-true}
+      USE_AWS_SERVICES: ${USE_AWS_SERVICES:-false}
+      USE_OPENAI: ${USE_OPENAI:-false}
+      
+      # AWS (if DEPLOYMENT=aws)
+      AWS_REGION: ${AWS_REGION}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_BEDROCK_MODEL_ID: ${AWS_BEDROCK_MODEL_ID}
+      
+      # OpenAI (if DEPLOYMENT=openai)
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_MODEL: ${OPENAI_MODEL}
+      
+      # Local models (if DEPLOYMENT=local)
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL}
+      LOCAL_VOICE_URL: ${LOCAL_VOICE_URL}
+      
+    volumes:
+      - ../../saas_dashboard:/app/saas_dashboard
+      - ../../automation:/app/automation
+      - ../../app:/app/app
+      - uploads_data:/app/uploads
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "${DASHBOARD_PORT:-5000}:5000"
+    depends_on:
+      - postgres
+      - elasticsearch
+    restart: unless-stopped
+    networks:
+      - saas_network
+
+  # Nginx reverse proxy (optional)
+  nginx:
+    image: nginx:latest
+    container_name: saas_nginx
+    volumes:
+      - ../../nginx/saas-platform.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "${NGINX_HTTP_PORT:-80}:80"
+      - "${NGINX_HTTPS_PORT:-443}:443"
+    depends_on:
+      - dashboard
+    restart: unless-stopped
+    networks:
+      - saas_network
+    profiles:
+      - production
+
+volumes:
+  postgres_data:
+  elasticsearch_data:
+  uploads_data:
+
+networks:
+  saas_network:
+    name: ${NETWORK_NAME:-saas_network}
+    driver: bridge

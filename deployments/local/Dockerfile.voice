@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install ffmpeg for audio processing
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install minimal dependencies for Whisper STT and MMS-TTS
+RUN pip install --no-cache-dir flask transformers soundfile sentencepiece numpy scipy && \
+    pip install --no-cache-dir torch torchaudio --index-url https://download.pytorch.org/whl/cpu
+
+# Copy voice server
+COPY voice_server.py /app/voice_server.py
+
+# Create cache directory
+RUN mkdir -p /app/cache
+
+ENV TRANSFORMERS_CACHE=/app/cache
+
+EXPOSE 8001
+
+CMD ["python3", "/app/voice_server.py"]

@@ -1,0 +1,267 @@
+# Comprehensive Customer Service Knowledge Base
+# Banking, E-commerce, Telecommunications, and Technical Support
+
+## BANKING SERVICES
+
+### Account Opening and Management
+
+Q: How do I open a new bank account?
+A: To open a new bank account, visit any branch with valid ID (passport or driver's license), proof of address (utility bill or bank statement from last 3 months), and initial deposit. You can also apply online at our website. The process takes 15-20 minutes and your account will be active immediately.
+
+Q: What documents do I need to open a business account?
+A: For business accounts, you need: business registration certificate, tax ID number, proof of business address, valid ID of all authorized signatories, and board resolution authorizing account opening. Minimum initial deposit is $1000.
+
+Q: How can I close my account?
+A: To close your account, visit any branch with your ID and debit card. Ensure all pending transactions are cleared and withdraw remaining balance. There's no closure fee if account is open for more than 6 months. You'll receive confirmation within 7 business days.
+
+Q: Can I have a joint account?
+A: Yes, we offer joint accounts for 2-4 account holders. All holders have equal rights and access. Each person needs to provide ID and sign the agreement. Joint accounts are great for families or business partners.
+
+Q: What is the minimum balance requirement?
+A: Savings accounts require $100 minimum balance. Checking accounts need $500 minimum. Premium accounts require $5000. Falling below minimum incurs $10 monthly fee. Students and seniors get fee waivers with valid ID.
+
+### Online and Mobile Banking
+
+Q: How do I activate online banking?
+A: Visit our website, click "Register for Online Banking", enter your account number and ATM card details, create username and password, verify your phone number with OTP, and you're done. Takes 5 minutes.
+
+Q: Is mobile banking secure?
+A: Yes, extremely secure. We use 256-bit encryption, biometric authentication (fingerprint/face ID), device binding, and real-time fraud detection. Never share your password or OTP with anyone. We'll never ask for it.
+
+Q: What can I do with mobile banking?
+A: Check balances, transfer money, pay bills, deposit checks by photo, locate ATMs, block/unblock cards, download statements, set spending limits, get instant transaction alerts, and chat with support 24/7.
+
+Q: I forgot my online banking password, what should I do?
+A: Click "Forgot Password" on login page, enter your username, verify identity with registered email/phone OTP, create new password. If you forgot username too, call 1-800-BANK-HELP with account number ready.
+
+Q: Can I use mobile banking abroad?
+A: Yes, mobile banking works worldwide wherever you have internet. However, notify us before traveling to avoid account locks due to unusual activity detection. International roaming charges may apply for SMS alerts.
+
+### Cards and ATMs
+
+Q: How do I report a lost or stolen card?
+A: Immediately call our 24/7 hotline 1-800-CARD-LOST or use mobile app to block card instantly. We'll issue replacement card within 3-5 business days. No liability for unauthorized transactions after reporting.
+
+Q: What should I do if my card is declined?
+A: Common reasons: insufficient funds, incorrect PIN, expired card, international transaction without prior notice, or daily limit exceeded. Try another ATM. If problem persists, call support or check mobile app for alerts.
+
+Q: Can I increase my ATM withdrawal limit?
+A: Yes, default daily limit is $500. You can increase to $2000 through mobile app (Settings > Card Limits) or by visiting branch. Premium account holders get $5000 limit. Changes take effect immediately.
+
+Q: Are there fees for using other bank ATMs?
+A: Our ATM network has 50,000+ locations nationwide (free). Other bank ATMs charge $2.50 per transaction. We reimburse up to $20/month in ATM fees for premium accounts. Use our app to find nearest free ATM.
+
+Q: How do I activate my new debit card?
+A: Call activation number on sticker (1-800-ACTIVATE), use it at any ATM with PIN provided in separate mail, or activate via mobile app. Card must be activated within 30 days of receipt.
+
+### Loans and Credit
+
+Q: What types of loans do you offer?
+A: We offer personal loans ($1K-$50K), auto loans (new/used cars), home loans (mortgages/refinancing), business loans ($10K-$1M), education loans (student/parent), and credit lines. Rates from 3.99% APR based on credit score.
+
+Q: What credit score do I need for a loan?
+A: Personal loans: 650+ credit score. Auto loans: 600+. Home loans: 700+ (FHA 580+). Business loans: 680+. Lower scores may qualify with higher rates or co-signer. We do free credit score check during application.
+
+Q: How long does loan approval take?
+A: Pre-approval: 5 minutes online. Full approval: 24-48 hours for personal/auto loans, 2-4 weeks for home loans. You'll need income proof, ID, credit history. Business loans take 1-2 weeks with business documents.
+
+Q: Can I pay off my loan early?
+A: Yes, no prepayment penalties on any loans. You'll save on interest. Pay extra anytime via online banking, mobile app, or branch. Use loan calculator on website to see savings from extra payments.
+
+Q: What is the difference between fixed and variable rate loans?
+A: Fixed rate stays same throughout loan term (predictable payments, protect against rate increases). Variable rate changes with market (lower initial rate, could increase/decrease). Most customers prefer fixed for stability.
+
+### Investments and Savings
+
+Q: What investment options do you offer?
+A: Savings accounts (0.5% APY), CDs (1-5 years, up to 4% APY), money market accounts (1.2% APY), mutual funds, stocks, bonds, retirement accounts (IRA/401k), and robo-advisor service. Minimum $100 to start.
+
+Q: Is my money insured?
+A: Yes, all deposits insured by FDIC up to $250,000 per depositor, per account type. Your money is completely safe even if bank fails. Investment products (stocks/mutual funds) are not FDIC insured.
+
+Q: What is the difference between savings and checking account?
+A: Savings: earns interest (0.5% APY), limited to 6 withdrawals/month, higher minimum balance ($100). Checking: no interest, unlimited transactions, debit card, checks, overdraft protection, lower minimum ($50).
+
+Q: Can I open an IRA account?
+A: Yes, we offer Traditional IRA (tax deduction now, taxed at withdrawal) and Roth IRA (no deduction now, tax-free withdrawal). 2024 contribution limit: $7,000 ($8,000 if 50+). Great for retirement savings.
+
+Q: How do I set up automatic savings?
+A: Log into online banking > Transfers > Schedule Automatic Transfer. Set amount, frequency (weekly/monthly), and duration. Even $50/month grows to $6,000+ in 10 years with interest. Start today!
+
+## E-COMMERCE SERVICES
+
+### Shopping and Orders
+
+Q: How do I place an order?
+A: Browse products, add to cart, proceed to checkout, enter shipping address, select payment method, review order, confirm purchase. You'll receive order confirmation email immediately with tracking number within 24 hours.
+
+Q: Can I modify my order after placing it?
+A: You can modify/cancel orders within 1 hour of placement. Go to Orders > Select Order > Modify/Cancel. After 1 hour, order is sent to warehouse and cannot be changed. Contact support for urgent changes.
+
+Q: Do you ship internationally?
+A: Yes, we ship to 150+ countries. International shipping costs $15-$50 depending on weight and destination. Delivery: 7-21 business days. Customer pays customs/import duties. Use shipping calculator at checkout.
+
+Q: What payment methods do you accept?
+A: Credit/debit cards (Visa, Mastercard, Amex, Discover), PayPal, Apple Pay, Google Pay, bank transfer, and buy now pay later (Klarna, Afterpay). All payments secured with SSL encryption. We never store card details.
+
+Q: How do I track my order?
+A: Check order status in My Account > Orders or click tracking link in shipping confirmation email. Real-time updates show: Order Placed > Processing > Shipped > Out for Delivery > Delivered. Usually delivers in 3-5 business days.
+
+### Returns and Refunds
+
+Q: What is your return policy?
+A: 30-day returns for full refund on unused items in original packaging. Electronics: 14 days. Personalized items: non-returnable. Return shipping: free for defective items, $7.99 for buyer's remorse. Refund processed in 5-7 business days.
+
+Q: How do I return an item?
+A: Go to Orders > Select Item > Return Request > Choose Reason > Print Return Label > Pack Item Securely > Drop at any courier location. Track return status online. Refund issued when item received at warehouse.
+
+Q: Can I exchange an item?
+A: Yes, follow return process and place new order for desired item. We don't do direct exchanges to ensure faster refunds. Most customers prefer this method. New order ships immediately, refund in 5-7 days.
+
+Q: What if I received wrong or damaged item?
+A: We apologize! Take photos, contact support within 48 hours with order number. We'll send correct item immediately (free expedited shipping) or full refund including return shipping. You keep/discard damaged item under $25.
+
+Q: How long do refunds take?
+A: Refund processed within 24 hours of receiving return. Money appears in account: credit cards 5-7 business days, PayPal 1-3 days, bank transfer 7-10 days. You'll receive email confirmation when refund is initiated.
+
+### Account and Membership
+
+Q: Do I need an account to shop?
+A: No, guest checkout available. However, accounts get: order tracking, faster checkout, exclusive deals, early sale access, wishlist, product reviews, personalized recommendations. Creating account is free and takes 1 minute.
+
+Q: What are the benefits of premium membership?
+A: Premium members ($99/year) get: free shipping on all orders, 15% off everything, early access to sales, exclusive products, priority customer service, extended return window (60 days), birthday gift, and rewards points doubled.
+
+Q: How do I reset my password?
+A: Click "Forgot Password" on login page, enter email, check inbox for reset link (check spam folder), click link, create new strong password, confirm. Link expires in 1 hour. Use password manager for security.
+
+Q: Can I delete my account?
+A: Yes, go to Account Settings > Privacy > Delete Account. This permanently removes personal data, order history, wishlist, saved cards. Active orders/subscriptions must be cancelled first. Cannot be undone. We'll email confirmation.
+
+Q: How do I update my shipping address?
+A: Account > Address Book > Add/Edit Address. Set one as default for faster checkout. You can save multiple addresses (home, office, gift recipients). Update before placing order for correct delivery.
+
+## TELECOMMUNICATIONS
+
+### Plans and Pricing
+
+Q: What mobile plans do you offer?
+A: Prepaid plans ($15-$50/month), postpaid unlimited ($60-$100/month family plans), business plans (custom pricing), data-only plans for tablets ($10-$40/month). All include unlimited talk/text. 5G included at no extra cost.
+
+Q: Can I keep my phone number if I switch carriers?
+A: Yes! Number porting is free and takes 2-4 hours. Don't cancel old service until port complete. You need: current phone number, account number, and PIN from old carrier. We handle everything during activation.
+
+Q: Do you have family plans?
+A: Yes, up to 10 lines on one account. Save $10/line: 1 line $60, 2 lines $100 ($50 each), 4 lines $140 ($35 each). Unlimited data, talk, text. Each line gets own number and hotspot. Easy management via app.
+
+Q: What happens if I exceed my data limit?
+A: Unlimited plans: no overage, but speeds reduced to 3G after 50GB during congestion. Limited plans: $10/GB overage or auto-upgrade to next tier. Check usage in app. Set alerts at 80% to avoid surprises.
+
+Q: Can I pause my service while traveling?
+A: Yes, vacation hold available ($10/month) keeps your number but pauses service. Max 90 days/year. Or add international roaming ($5-$10/day depending on country). Use WiFi calling abroad to avoid roaming charges.
+
+### Devices and Equipment
+
+Q: Do you sell phones?
+A: Yes, latest iPhone, Samsung, Google Pixel, and more. Options: buy outright (unlocked), 24-month installment ($0 down), or trade-in old phone (up to $1000 credit). All phones come with 1-year manufacturer warranty.
+
+Q: Can I bring my own device?
+A: Yes! Bring any unlocked phone. Check compatibility at our website (enter IMEI number). Get free SIM card at store or shipped free. Activate online in minutes. Save money by keeping your phone.
+
+Q: What if my phone is lost or stolen?
+A: Immediately: 1) Call us to suspend service (prevent charges), 2) Use Find My Phone to locate/lock/wipe, 3) File police report, 4) File insurance claim if you have device protection ($99 replacement with $149 deductible).
+
+Q: Do you offer phone insurance?
+A: Yes, device protection is $9/month per line. Covers: cracked screen ($29 deductible), loss/theft ($149 deductible), mechanical failure, water damage. Unlimited claims. Alternative: manufacturer warranty or credit card purchase protection.
+
+Q: How do I upgrade my phone?
+A: Eligible after 12 payments on current device installment. Trade in old phone (get credit toward new one), pay off remaining balance, or keep paying old + new device. Upgrade fee: $30. Check upgrade eligibility in app.
+
+### Technical Support
+
+Q: My phone has no signal, what should I do?
+A: Try: toggle airplane mode on/off, restart phone, check if service is paid/active, remove/reinsert SIM card, check for network outages (text OUTAGE to 611 or check website), reset network settings. Still issues? Visit store for new SIM.
+
+Q: How do I set up voicemail?
+A: Call 611 from your phone, press * to interrupt greeting, create 4-digit PIN, record personal greeting, hang up. To check voicemail: hold 1, enter PIN. Visual voicemail: download app from app store (included free in all plans).
+
+Q: My mobile data is not working, help!
+A: Check: data is enabled in phone settings, not in airplane mode, LTE/5G is on, cellular data for specific app is allowed, APN settings correct (auto-configured). Restart phone. Still not working? Reset network settings or contact support.
+
+Q: How do I reduce my phone bill?
+A: Ways to save: switch to lower plan if using less data, add autopay ($5/month discount), paperless billing ($5/month), refer friends ($10 credit each), bundle with home internet (20% off), military/teacher/student discounts available.
+
+Q: What is WiFi calling?
+A: Make calls/texts over WiFi when cellular signal weak. Included free. Enable in phone settings. Great for: basements, rural areas, international travel (no roaming fees). Uses data if cellular available (better quality).
+
+### Billing and Payments
+
+Q: When is my bill due?
+A: Bill generated on same date each month (your billing cycle date). Payment due 21 days after bill date. Set autopay to never miss payment (get $5/month discount). View current/past bills in account portal or app anytime.
+
+Q: Why is my bill higher than expected?
+A: Common reasons: first bill (prorated + full month + activation fee), international roaming charges, premium SMS (charity donations, voting), device installment, added features mid-cycle, late payment fee ($10), tax/fees vary by location.
+
+Q: Can I change my billing date?
+A: Yes, once per year. New billing date takes effect next cycle. Go to Account > Billing > Change Bill Date or call support. Note: first bill after change may be prorated (higher/lower than usual).
+
+Q: Do you offer payment extensions?
+A: Yes, one-time 7-day extension available if account in good standing. Call or use app to request. Service continues during extension. After that, payment arrangements available (split bill over 3 months) with $10 fee.
+
+Q: How do I dispute a charge?
+A: Review bill details in app first (tap charge for breakdown). Still incorrect? Contact billing support with account number and specific charge. We investigate within 2 business days. Valid disputes credited within 1-2 billing cycles.
+
+## TECHNICAL SUPPORT
+
+### Software and Applications
+
+Q: How do I reset my password?
+A: Click "Forgot Password", enter email/username, check email for reset link, click link (expires in 1 hour), create new password (8+ characters, 1 number, 1 special character), confirm. Update on all devices. Enable 2FA for security.
+
+Q: The application won't open, what should I do?
+A: Try: force close app and reopen, check for app updates, restart device, clear app cache (Settings > Apps > [App Name] > Clear Cache), uninstall and reinstall app, check internet connection, disable VPN temporarily.
+
+Q: How do I enable two-factor authentication?
+A: Account Settings > Security > Two-Factor Authentication > Enable > Choose method (SMS, authenticator app, email) > Verify. Now you'll enter code along with password during login. Highly recommended for account security.
+
+Q: Can I use the same account on multiple devices?
+A: Yes! Desktop, laptop, tablet, phone - unlimited devices. Simultaneous use: free plan (1 device), basic (2 devices), premium (5 devices), enterprise (unlimited). All devices sync in real-time via cloud.
+
+Q: How do I report a bug?
+A: App: Settings > Help > Report Bug or shake device. Web: Help icon > Report Issue. Include: what happened, what you expected, steps to reproduce, screenshots. Our team responds within 24 hours. Critical bugs get priority.
+
+### Connectivity Issues
+
+Q: I cannot connect to the internet, help!
+A: Check: WiFi/data is on, correct network selected, airplane mode is off, router is on (unplug 30 seconds and replug), try different network, restart device, forget and rejoin WiFi network, check if service provider has outage.
+
+Q: Why is my connection so slow?
+A: Possible causes: too many devices on network, router distance (get closer), background updates downloading, VPN enabled (try disabling), ISP throttling, old router (upgrade to WiFi 6), interference from other electronics, need speed upgrade from ISP.
+
+Q: How do I improve WiFi signal?
+A: Place router centrally at height, away from walls/metal/microwaves, update router firmware, change WiFi channel (less interference), get WiFi extender or mesh system, upgrade router, reduce devices, use 5GHz band (faster, shorter range) vs 2.4GHz.
+
+Q: What is the difference between 2.4GHz and 5GHz WiFi?
+A: 2.4GHz: longer range, better wall penetration, slower (max 600 Mbps), more interference. 5GHz: shorter range, worse through walls, faster (max 1300 Mbps), less interference. Use 5GHz for nearby devices, 2.4GHz for distant/smart home devices.
+
+Q: Should I use VPN?
+A: Yes for: public WiFi (security), accessing region-locked content, privacy from ISP, avoiding throttling. No for: gaming (adds latency), streaming (slower), torrenting (some VPNs slow), local network access. Choose reputable paid VPN, not free.
+
+### Security and Privacy
+
+Q: How do I protect my account from hackers?
+A: Use: strong unique password (12+ characters), two-factor authentication, password manager, security questions, trusted devices only, monitor login activity, never share credentials, beware phishing emails, update software regularly, antivirus on all devices.
+
+Q: What should I do if my account is hacked?
+A: Immediately: change password, enable 2FA, review login activity (log out suspicious sessions), check connected apps (revoke unknown), scan device for malware, notify support, check bank statements (report unauthorized charges), alert contacts.
+
+Q: Is my personal data safe?
+A: Yes, we use: end-to-end encryption, zero-knowledge architecture (we can't see your data), SOC 2 Type II certified, GDPR compliant, annual security audits, data centers with physical security, employee background checks, never sell data to third parties.
+
+Q: How do I delete my data?
+A: Account Settings > Privacy > Download My Data (get copy first) > Delete Account. This permanently removes: profile, posts, messages, payment info, login history. Takes 30 days (can cancel during this time). Some legal data retained per policy.
+
+Q: What is phishing and how do I avoid it?
+A: Phishing: fake emails/texts pretending to be from trusted companies to steal info. Red flags: urgent language, suspicious sender, unexpected attachments, spelling errors, asking for password/SSN. Never click suspicious links. When in doubt, contact company directly.
+
+This knowledge base contains 100+ Q&A pairs covering banking, e-commerce, telecommunications, and technical support - perfect for training your AI customer care system!

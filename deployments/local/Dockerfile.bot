@@ -1,0 +1,28 @@
+FROM python:3.11-slim
+WORKDIR /app
+
+# No system dependencies needed - voice service handles all audio processing
+
+# Copy requirements and install
+COPY requirements-ultralight.txt .
+
+# Install PyTorch CPU-only FIRST from specific index to avoid CUDA
+RUN pip install --no-cache-dir torch==2.0.1 --index-url https://download.pytorch.org/whl/cpu
+
+# Then install rest of requirements (will use already-installed torch)
+RUN pip install --no-cache-dir -r requirements-ultralight.txt
+
+# Copy application code
+COPY app/ ./app/
+COPY data/ ./data/
+
+# Environment variables for ultra-light setup
+ENV USE_LOCAL_MODELS=true
+ENV LLM_MODEL=tinyllama
+ENV OLLAMA_BASE_URL=http://test_ollama:11434
+ENV LOCAL_VOICE_URL=http://test_voice:8001
+ENV ELASTICSEARCH_HOST=test_elasticsearch:9200
+ENV USE_OPENAI=false
+
+EXPOSE 8000
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,30 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    docker.io \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY saas_requirements.txt .
+RUN pip install --no-cache-dir -r saas_requirements.txt
+
+# Copy application code
+COPY saas_dashboard/ ./saas_dashboard/
+COPY automation/ ./automation/
+COPY app/ ./app/
+
+# Create uploads directory
+RUN mkdir -p /app/uploads
+
+# Expose Flask port
+EXPOSE 5000
+
+# Set Flask app
+ENV FLASK_APP=saas_dashboard/app.py
+
+# Run Flask app
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=5000"]

@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  bot:
+    build:
+      context: ../..
+      dockerfile: deployments/openai/Dockerfile.bot
+    image: customer-care-bot:openai
+    container_name: ${CUSTOMER_ID}_openai
+    ports:
+      - "${BOT_PORT}:8000"
+    environment:
+      # OpenAI Configuration (from .env)
+      USE_OPENAI: ${USE_OPENAI}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      
+      # OpenAI Models
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4}
+      OPENAI_TTS_MODEL: ${OPENAI_TTS_MODEL:-tts-1}
+      OPENAI_TTS_VOICE: ${OPENAI_TTS_VOICE:-alloy}
+      OPENAI_WHISPER_MODEL: ${OPENAI_WHISPER_MODEL:-whisper-1}
+      OPENAI_EMBEDDING_MODEL: ${OPENAI_EMBEDDING_MODEL:-text-embedding-3-large}
+      OPENAI_EMBEDDING_DIMENSIONS: ${OPENAI_EMBEDDING_DIMENSIONS:-3072}
+      
+      # Telegram
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      
+      # Customer ID
+      CUSTOMER_ID: ${CUSTOMER_ID}
+      
+      # Elasticsearch
+      ELASTICSEARCH_HOST: ${ELASTICSEARCH_HOST:-elasticsearch:9200}
+      ELASTICSEARCH_INDEX: ${ELASTICSEARCH_INDEX:-customer_qa}
+      
+    mem_limit: ${BOT_MEMORY_LIMIT:-256m}
+    restart: unless-stopped
+    networks:
+      - customer_care
+    depends_on:
+      - elasticsearch
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: ${CUSTOMER_ID}_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    mem_limit: ${ES_MEMORY_LIMIT:-512m}
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    networks:
+      - customer_care
+
+networks:
+  customer_care:
+    name: ${NETWORK_NAME:-customer_care_network}
+    driver: bridge
+
+volumes:
+  es_data:
+    name: ${CUSTOMER_ID}_es_data

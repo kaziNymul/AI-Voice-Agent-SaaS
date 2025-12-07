@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # Elasticsearch for vector database
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    container_name: ai-customer-care-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Ollama LLM server (for local models like Llama 2, Mistral)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-customer-care-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Local voice service (Faster Whisper STT + Coqui TTS)
+  local-voice:
+    build:
+      context: .
+      dockerfile: Dockerfile.local-voice
+    container_name: ai-customer-care-local-voice
+    ports:
+      - "8001:8001"
+    environment:
+      - WHISPER_MODEL=${WHISPER_MODEL:-base}
+      - TTS_MODEL=${TTS_MODEL:-tts_models/en/ljspeech/tacotron2-DDC}
+      - DEVICE=cpu
+    volumes:
+      - voice_models:/root/.cache
+    depends_on:
+      - ollama
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Main application
+  app:
+    build: .
+    container_name: ai-customer-care-app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - USE_LOCAL_MODELS=true
+      - OLLAMA_URL=http://ollama:11434
+      - LOCAL_VOICE_URL=http://local-voice:8001
+      - LOCAL_LLM_MODEL=${LOCAL_LLM_MODEL:-llama2:7b}
+      - LOCAL_EMBEDDING_MODEL=${LOCAL_EMBEDDING_MODEL:-all-MiniLM-L6-v2}
+      - EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION:-384}
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+      local-voice:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+
+volumes:
+  esdata:
+  ollama_data:
+  voice_models:

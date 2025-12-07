@@ -1,0 +1,22 @@
+# OpenAI Services Requirements
+
+# Core
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-telegram-bot==20.6
+
+# OpenAI
+openai==1.3.0
+
+# Elasticsearch for local vector storage
+elasticsearch==8.11.0
+
+# Utils
+httpx==0.25.2
+pydantic==2.5.0
+pydantic-settings==2.1.0
+structlog==23.2.0
+python-dotenv==1.0.0
+
+# Database
+sqlalchemy==2.0.23

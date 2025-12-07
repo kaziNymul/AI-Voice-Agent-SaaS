@@ -1,0 +1,32 @@
+# Ultra-lightweight requirements with vector embeddings (no OpenAI, no GPU)
+# FastAPI and web framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+python-multipart==0.0.6
+
+# HTTP clients
+httpx==0.26.0
+requests==2.31.0
+
+# Telegram
+python-telegram-bot==20.8
+
+# Elasticsearch (pinned to match server version)
+elasticsearch==8.11.0
+aiohttp  # Required for async Elasticsearch
+
+# Local Embeddings (CPU-only, lightweight)
+# NOTE: torch installed separately in Dockerfile from CPU-only index
+numpy==1.24.3
+sentence-transformers==2.7.0
+huggingface-hub==0.23.0
+
+# Utilities
+python-dotenv==1.0.0
+tenacity==8.2.3
+
+# Logging
+structlog==24.1.0
+colorama==0.4.6

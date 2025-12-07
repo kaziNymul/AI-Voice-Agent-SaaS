@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Customer Care Agent - Setup Wizard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .wizard {
+            padding: 40px;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .step-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .step-description {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .option-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .option-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .option-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .option-card.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .option-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .option-card .title {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .option-card .description {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .option-card .badge {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group .hint {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        
+        .checkbox-group label {
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #666;
+        }
+        
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+        
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .summary-box {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .summary-label {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .summary-value {
+            color: #333;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Customer Care Agent</h1>
+            <p>Interactive Setup Wizard</p>
+        </div>
+        
+        <div class="wizard">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 20%"></div>
+            </div>
+            
+            <!-- Step 1: AI Model Selection -->
+            <div class="step active" id="step1">
+                <h2 class="step-title">Choose AI Model Provider</h2>
+                <p class="step-description">Select which AI services to use for conversation, speech recognition, and text-to-speech</p>
+                
+                <div class="option-cards">
+                    <div class="option-card" data-value="local" onclick="selectModel('local')">
+                        <div class="icon">💻</div>
+                        <div class="title">Local AI</div>
+                        <div class="description">TinyLlama, Whisper, MMS-TTS running locally</div>
+                        <div class="badge">$0/month • Slower</div>
+                    </div>
+                    
+                    <div class="option-card" data-value="aws" onclick="selectModel('aws')">
+                        <div class="icon">☁️</div>
+                        <div class="title">AWS Cloud</div>
+                        <div class="description">Bedrock, Transcribe & Polly</div>
+                        <div class="badge">~$0.02/call • Fast</div>
+                    </div>
+                    
+                    <div class="option-card" data-value="openai" onclick="selectModel('openai')">
+                        <div class="icon">🚀</div>
+                        <div class="title">OpenAI</div>
+                        <div class="description">GPT-4, Whisper & TTS-1 HD</div>
+                        <div class="badge">~$0.02/call • Fastest</div>
+                    </div>
+                </div>
+                
+                <div class="buttons">
+                    <button class="btn btn-secondary" disabled>Previous</button>
+                    <button class="btn btn-primary" onclick="nextStep()" id="step1Next" disabled>Next</button>
+                </div>
+            </div>
+            
+            <!-- Step 2: Communication Channel -->
+            <div class="step" id="step2">
+                <h2 class="step-title">Choose Communication Channel</h2>
+                <p class="step-description">Select how customers will interact with your AI agent</p>
+                
+                <div class="option-cards">
+                    <div class="option-card" data-value="telegram" onclick="selectChannel('telegram')">
+                        <div class="icon">💬</div>
+                        <div class="title">Telegram</div>
+                        <div class="description">Chat-based customer service</div>
+                        <div class="badge">Free</div>
+                    </div>
+                    
+                    <div class="option-card" data-value="twilio" onclick="selectChannel('twilio')">
+                        <div class="icon">📞</div>
+                        <div class="title">Twilio</div>
+                        <div class="description">Cloud-based phone calls</div>
+                        <div class="badge">Pay per use</div>
+                    </div>
+                    
+                    <div class="option-card" data-value="sip" onclick="selectChannel('sip')">
+                        <div class="icon">🔌</div>
+                        <div class="title">SIP Trunk</div>
+                        <div class="description">Direct phone integration</div>
+                        <div class="badge">Enterprise</div>
+                    </div>
+                </div>
+                
+                <div id="telegramFields" class="hidden">
+                    <div class="form-group">
+                        <label for="telegramToken">Telegram Bot Token *</label>
+                        <input type="text" id="telegramToken" placeholder="1234567890:ABCdefGHIjklMNOpqrsTUVwxyz" />
+                        <div class="hint">Get your token from @BotFather on Telegram</div>
+                    </div>
+                </div>
+                
+                <div id="twilioFields" class="hidden">
+                    <div class="form-group">
+                        <label for="twilioSid">Twilio Account SID *</label>
+                        <input type="text" id="twilioSid" placeholder="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+                    </div>
+                    <div class="form-group">
+                        <label for="twilioToken">Twilio Auth Token *</label>
+                        <input type="password" id="twilioToken" placeholder="your_auth_token" />
+                    </div>
+                    <div class="form-group">
+                        <label for="twilioNumber">Twilio Phone Number *</label>
+                        <input type="text" id="twilioNumber" placeholder="+1234567890" />
+                    </div>
+                </div>
+                
+                <div id="sipFields" class="hidden">
+                    <div class="form-group">
+                        <label for="sipDomain">SIP Domain *</label>
+                        <input type="text" id="sipDomain" placeholder="sip.example.com" />
+                    </div>
+                    <div class="form-group">
+                        <label for="sipUsername">SIP Username *</label>
+                        <input type="text" id="sipUsername" placeholder="your_username" />
+                    </div>
+                    <div class="form-group">
+                        <label for="sipPassword">SIP Password *</label>
+                        <input type="password" id="sipPassword" placeholder="your_password" />
+                    </div>
+                </div>
+                
+                <!-- Server Domain/URL (for webhooks) -->
+                <div class="form-group" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+                    <label for="serverUrl">Server Domain/IP Address (Optional)</label>
+                    <input type="text" id="serverUrl" placeholder="https://yourdomain.com or http://123.45.67.89" />
+                    <div class="hint">📍 Your server's public URL where this application will be deployed<br>
+                    Example: <code>https://callcenter.mycompany.com</code> or <code>http://54.123.45.67</code><br>
+                    <strong>Used for:</strong> Twilio/Telegram webhook configuration<br>
+                    <strong>Leave blank</strong> if deploying locally or configuring webhooks later</div>
+                </div>
+                
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                    <button class="btn btn-primary" onclick="nextStep()" id="step2Next" disabled>Next</button>
+                </div>
+            </div>
+            
+            <!-- Step 3: SaaS Platform (Optional) -->
+            <div class="step" id="step3">
+                <h2 class="step-title">Multi-Tenant SaaS Platform</h2>
+                <p class="step-description">Enable multiple customers with their own knowledge bases</p>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableSaaS" onchange="toggleSaaS()" />
+                    <label for="enableSaaS"><strong>Enable SaaS Platform</strong> - Multi-tenant with customer dashboard</label>
+                </div>
+                
+                <div class="alert alert-success" style="margin-top: 20px;">
+                    <strong>🏢 SaaS Platform Features:</strong><br>
+                    • Customer signup & management dashboard (http://localhost:5000)<br>
+                    • Each customer can upload their own data (PDFs, CSVs, text files)<br>
+                    • Vector database storage based on your AI model:<br>
+                    &nbsp;&nbsp;- <strong>Local:</strong> Elasticsearch<br>
+                    &nbsp;&nbsp;- <strong>AWS:</strong> Amazon OpenSearch<br>
+                    &nbsp;&nbsp;- <strong>OpenAI:</strong> OpenAI embeddings + PostgreSQL<br>
+                    • PostgreSQL for customer accounts & metadata<br>
+                    • Isolated data per customer with RAG (Retrieval Augmented Generation)
+                </div>
+                
+                <div id="saasConfigFields" class="hidden">
+                    <div class="form-group">
+                        <label for="postgresPassword">PostgreSQL Password</label>
+                        <input type="password" id="postgresPassword" placeholder="Auto-generated if left blank" />
+                        <div class="hint">Leave blank to auto-generate a secure password</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPassword">Admin Dashboard Password</label>
+                        <input type="password" id="adminPassword" placeholder="Auto-generated if left blank" />
+                        <div class="hint">Leave blank to auto-generate a secure password</div>
+                    </div>
+                </div>
+                
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+            
+            <!-- Step 4: AI Model Configuration -->
+            <div class="step" id="step4">
+                <h2 class="step-title">AI Model Configuration</h2>
+                <p class="step-description" id="step4Description">Configure your AI model settings</p>
+                
+                <!-- Local Configuration -->
+                <div id="localConfig" class="hidden">
+                    <div class="form-group">
+                        <label for="ollamaModel">Ollama Model</label>
+                        <select id="ollamaModel">
+                            <option value="tinyllama">TinyLlama (Fastest, 1GB RAM)</option>
+                            <option value="phi">Phi (Balanced, 2GB RAM)</option>
+                            <option value="mistral">Mistral (Better quality, 4GB RAM)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="whisperModel">Whisper Model</label>
+                        <select id="whisperModel">
+                            <option value="base">Base (Fast, 140MB)</option>
+                            <option value="small">Small (Better, 460MB)</option>
+                            <option value="medium">Medium (Best, 1.4GB)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- AWS Configuration -->
+                <div id="awsConfig" class="hidden">
+                    <div class="form-group">
+                        <label for="awsAccessKey">AWS Access Key ID *</label>
+                        <input type="text" id="awsAccessKey" placeholder="AKIAIOSFODNN7EXAMPLE" />
+                    </div>
+                    <div class="form-group">
+                        <label for="awsSecretKey">AWS Secret Access Key *</label>
+                        <input type="password" id="awsSecretKey" placeholder="wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" />
+                    </div>
+                    <div class="form-group">
+                        <label for="awsRegion">AWS Region</label>
+                        <select id="awsRegion">
+                            <option value="us-east-1">US East (N. Virginia)</option>
+                            <option value="us-west-2">US West (Oregon)</option>
+                            <option value="eu-west-1">EU (Ireland)</option>
+                            <option value="ap-southeast-1">Asia Pacific (Singapore)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- OpenAI Configuration -->
+                <div id="openaiConfig" class="hidden">
+                    <div class="form-group">
+                        <label for="openaiKey">OpenAI API Key *</label>
+                        <input type="password" id="openaiKey" placeholder="sk-..." />
+                        <div class="hint">Get your key from platform.openai.com</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="openaiModel">OpenAI Model</label>
+                        <select id="openaiModel">
+                            <option value="gpt-4">GPT-4 (Best quality)</option>
+                            <option value="gpt-4-turbo">GPT-4 Turbo (Faster)</option>
+                            <option value="gpt-3.5-turbo">GPT-3.5 Turbo (Cheaper)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+            
+            <!-- Step 5: Summary & Deploy -->
+            <div class="step" id="step5">
+                <h2 class="step-title">Review & Deploy</h2>
+                <p class="step-description">Review your configuration and deploy</p>
+                
+                <div id="alertBox"></div>
+                
+                <div class="summary-box" id="summaryBox"></div>
+                
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                    <button class="btn btn-primary" onclick="deploy()" id="deployBtn">🚀 Deploy Now</button>
+                </div>
+                
+                <div id="deploymentStatus" class="hidden loading">
+                    <div class="spinner"></div>
+                    <p>Deploying your AI Customer Care Agent...</p>
+                    <p style="color: #999; margin-top: 10px;">This may take 2-5 minutes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+        const config = {
+            ai_model: '',
+            channel_type: '',
+            enable_saas: 'false'
+        };
+        
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+        
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+            currentStep = step;
+            updateProgress();
+            
+            if (step === 4) {
+                showDeploymentConfig();
+            } else if (step === 5) {
+                showSummary();
+            }
+        }
+        
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                // Validate current step
+                if (currentStep === 1 && !config.ai_model) {
+                    alert('Please select an AI model provider');
+                    return;
+                }
+                if (currentStep === 2 && !config.channel_type) {
+                    alert('Please select a communication channel');
+                    return;
+                }
+                if (currentStep === 2) {
+                    if (!saveChannelConfig()) return;
+                }
+                if (currentStep === 3) {
+                    saveSaaSConfig();
+                }
+                if (currentStep === 4) {
+                    saveModelConfig();
+                }
+                
+                showStep(currentStep + 1);
+            }
+        }
+        
+        function prevStep() {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        }
+        
+        function selectModel(type) {
+            config.ai_model = type;
+            document.querySelectorAll('#step1 .option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`#step1 .option-card[data-value="${type}"]`).classList.add('selected');
+            document.getElementById('step1Next').disabled = false;
+        }
+        
+        function selectChannel(type) {
+            config.channel_type = type;
+            document.querySelectorAll('#step2 .option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`#step2 .option-card[data-value="${type}"]`).classList.add('selected');
+            
+            // Show/hide relevant fields
+            document.getElementById('telegramFields').classList.toggle('hidden', type !== 'telegram');
+            document.getElementById('twilioFields').classList.toggle('hidden', type !== 'twilio');
+            document.getElementById('sipFields').classList.toggle('hidden', type !== 'sip');
+            
+            document.getElementById('step2Next').disabled = false;
+        }
+        
+        function saveChannelConfig() {
+            const type = config.channel_type;
+            
+            if (type === 'telegram') {
+                const token = document.getElementById('telegramToken').value;
+                if (!token) {
+                    alert('Please enter your Telegram bot token');
+                    return false;
+                }
+                config.telegram_token = token;
+            } else if (type === 'twilio') {
+                const sid = document.getElementById('twilioSid').value;
+                const token = document.getElementById('twilioToken').value;
+                const number = document.getElementById('twilioNumber').value;
+                if (!sid || !token || !number) {
+                    alert('Please fill in all Twilio fields');
+                    return false;
+                }
+                config.twilio_sid = sid;
+                config.twilio_token = token;
+                config.twilio_number = number;
+            } else if (type === 'sip') {
+                const domain = document.getElementById('sipDomain').value;
+                const username = document.getElementById('sipUsername').value;
+                const password = document.getElementById('sipPassword').value;
+                if (!domain || !username || !password) {
+                    alert('Please fill in all SIP fields');
+                    return false;
+                }
+                config.sip_domain = domain;
+                config.sip_username = username;
+                config.sip_password = password;
+            }
+            
+            // Save server URL (optional)
+            const serverUrl = document.getElementById('serverUrl').value.trim();
+            if (serverUrl) {
+                config.server_url = serverUrl;
+            }
+            
+            return true;
+        }
+        
+        function toggleSaaS() {
+            const enabled = document.getElementById('enableSaaS').checked;
+            config.enable_saas = enabled ? 'true' : 'false';
+            document.getElementById('saasConfigFields').classList.toggle('hidden', !enabled);
+        }
+        
+        function saveSaaSConfig() {
+            config.enable_saas = document.getElementById('enableSaaS').checked ? 'true' : 'false';
+            if (config.enable_saas === 'true') {
+                config.postgres_password = document.getElementById('postgresPassword').value;
+                config.admin_password = document.getElementById('adminPassword').value;
+            }
+        }
+        
+        function showDeploymentConfig() {
+            document.querySelectorAll('#step4 > div[id$="Config"]').forEach(div => div.classList.add('hidden'));
+            
+            const type = config.ai_model;
+            if (type === 'local') {
+                document.getElementById('localConfig').classList.remove('hidden');
+                document.getElementById('step4Description').textContent = 'Configure local AI models';
+            } else if (type === 'aws') {
+                document.getElementById('awsConfig').classList.remove('hidden');
+                document.getElementById('step4Description').textContent = 'Configure AWS credentials';
+            } else if (type === 'openai') {
+                document.getElementById('openaiConfig').classList.remove('hidden');
+                document.getElementById('step4Description').textContent = 'Configure OpenAI API';
+            }
+        }
+        
+        function saveModelConfig() {
+            const type = config.ai_model;
+            
+            if (type === 'local') {
+                config.ollama_model = document.getElementById('ollamaModel').value;
+                config.whisper_model = document.getElementById('whisperModel').value;
+            } else if (type === 'aws') {
+                config.aws_access_key = document.getElementById('awsAccessKey').value;
+                config.aws_secret_key = document.getElementById('awsSecretKey').value;
+                config.aws_region = document.getElementById('awsRegion').value;
+            } else if (type === 'openai') {
+                config.openai_api_key = document.getElementById('openaiKey').value;
+                config.openai_model = document.getElementById('openaiModel').value;
+            }
+            
+            // Always save SaaS config if enabled (it's in step 3 now)
+            if (config.enable_saas === 'true') {
+                config.postgres_password = document.getElementById('postgresPassword').value;
+                config.admin_password = document.getElementById('adminPassword').value;
+            }
+        }
+        
+        function showSummary() {
+            const summaryBox = document.getElementById('summaryBox');
+            let html = '<div class="summary-item"><span class="summary-label">AI Model:</span><span class="summary-value">' + config.ai_model.toUpperCase() + '</span></div>';
+            html += '<div class="summary-item"><span class="summary-label">Communication:</span><span class="summary-value">' + config.channel_type.toUpperCase() + '</span></div>';
+            
+            if (config.server_url) {
+                html += '<div class="summary-item"><span class="summary-label">Server URL:</span><span class="summary-value">' + config.server_url + '</span></div>';
+            }
+            
+            if (config.enable_saas === 'true') {
+                const vectorTarget = config.ai_model === 'local' ? 'Elasticsearch' : 
+                                   config.ai_model === 'aws' ? 'Amazon OpenSearch' : 
+                                   config.ai_model === 'openai' ? 'OpenAI + PostgreSQL' : 'PostgreSQL';
+                html += '<div class="summary-item"><span class="summary-label">SaaS Platform:</span><span class="summary-value">✅ Enabled with ' + vectorTarget + '</span></div>';
+                html += '<div class="summary-item"><span class="summary-label">Dashboard:</span><span class="summary-value">http://localhost:5000</span></div>';
+            } else {
+                html += '<div class="summary-item"><span class="summary-label">Mode:</span><span class="summary-value">Single Tenant</span></div>';
+            }
+            
+            summaryBox.innerHTML = html;
+        }
+        
+        async function deploy() {
+            document.getElementById('deployBtn').disabled = true;
+            document.getElementById('deploymentStatus').classList.remove('hidden');
+            document.getElementById('alertBox').innerHTML = '';
+            
+            try {
+                // Save config
+                const saveResponse = await fetch('/api/config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+                
+                if (!saveResponse.ok) throw new Error('Failed to save configuration');
+                
+                // Deploy
+                const deployResponse = await fetch('/api/deploy', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+                
+                const result = await deployResponse.json();
+                
+                document.getElementById('deploymentStatus').classList.add('hidden');
+                
+                if (result.success) {
+                    document.getElementById('alertBox').innerHTML = 
+                        '<div class="alert alert-success"><strong>✅ Success!</strong> Your AI Customer Care Agent is deploying. Check terminal for progress.</div>';
+                } else {
+                    document.getElementById('alertBox').innerHTML = 
+                        '<div class="alert alert-error"><strong>❌ Error:</strong> ' + (result.error || 'Deployment failed') + '</div>';
+                    document.getElementById('deployBtn').disabled = false;
+                }
+            } catch (error) {
+                document.getElementById('deploymentStatus').classList.add('hidden');
+                document.getElementById('alertBox').innerHTML = 
+                    '<div class="alert alert-error"><strong>❌ Error:</strong> ' + error.message + '</div>';
+                document.getElementById('deployBtn').disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

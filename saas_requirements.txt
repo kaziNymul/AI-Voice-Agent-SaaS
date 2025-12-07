@@ -1,0 +1,38 @@
+# SaaS Platform Python Dependencies
+
+# Web Framework
+Flask==3.0.0
+Flask-SQLAlchemy==3.1.1
+Flask-JWT-Extended==4.5.3
+Flask-CORS==4.0.0
+
+# Database
+psycopg2-binary==2.9.9
+SQLAlchemy==2.0.23
+
+# Security
+Werkzeug==3.0.1
+
+# Docker management
+docker==7.0.0
+
+# Elasticsearch
+elasticsearch==8.11.0
+
+# Data processing
+pandas==2.1.4
+
+# Twilio (phone number provisioning)
+twilio==8.11.0
+
+# Telegram
+python-telegram-bot==20.7
+
+# HTTP requests
+requests==2.31.0
+
+# Environment variables
+python-dotenv==1.0.0
+
+# Production WSGI server
+gunicorn==21.2.0

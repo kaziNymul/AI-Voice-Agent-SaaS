@@ -1,0 +1,125 @@
+# Customer Support Knowledge Base
+
+## Account Management
+
+### How to Reset Password
+1. Go to the login page
+2. Click "Forgot Password"
+3. Enter your registered email address
+4. Check your email for a reset link
+5. Click the link and create a new password
+6. Your password must be at least 8 characters with one number and one special character
+
+### How to Update Profile Information
+You can update your profile information by:
+1. Log in to your account
+2. Click on your profile icon in the top right
+3. Select "Account Settings"
+4. Edit your information (name, email, phone number)
+5. Click "Save Changes"
+
+### How to Delete Account
+To delete your account:
+1. Log in to your account
+2. Go to Account Settings
+3. Scroll to the bottom and click "Delete Account"
+4. Confirm your decision
+5. Your account will be permanently deleted within 30 days
+
+## Billing and Payments
+
+### Payment Methods Accepted
+We accept the following payment methods:
+- Credit cards (Visa, Mastercard, American Express)
+- Debit cards
+- PayPal
+- Bank transfer (for enterprise customers)
+
+### How to Update Payment Information
+1. Log in to your account
+2. Go to "Billing" section
+3. Click "Payment Methods"
+4. Add new card or update existing one
+5. Save changes
+
+### Refund Policy
+- Full refund within 14 days of purchase
+- Partial refund for unused portion after 14 days
+- Refunds processed within 5-7 business days
+- Contact support@company.com for refund requests
+
+## Technical Support
+
+### System Requirements
+Minimum requirements:
+- Operating System: Windows 10+, macOS 10.15+, Linux Ubuntu 20.04+
+- RAM: 4GB minimum, 8GB recommended
+- Browser: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- Internet: Stable connection with 5 Mbps minimum
+
+### Troubleshooting Login Issues
+If you can't log in:
+1. Check your internet connection
+2. Clear browser cache and cookies
+3. Try a different browser
+4. Reset your password
+5. Contact support if issue persists
+
+### Contact Support
+- Email: support@company.com
+- Phone: +1-800-123-4567 (Mon-Fri, 9 AM - 5 PM EST)
+- Live chat: Available on our website
+- Response time: Within 24 hours
+
+## Product Features
+
+### What is included in the Basic Plan?
+Basic Plan includes:
+- Up to 5 users
+- 10 GB storage
+- Email support
+- Basic analytics
+- Mobile app access
+- Price: $9.99/month
+
+### What is included in the Pro Plan?
+Pro Plan includes:
+- Up to 50 users
+- 100 GB storage
+- Priority email and chat support
+- Advanced analytics and reporting
+- API access
+- Custom integrations
+- Price: $49.99/month
+
+### What is included in the Enterprise Plan?
+Enterprise Plan includes:
+- Unlimited users
+- Unlimited storage
+- 24/7 phone and chat support
+- Dedicated account manager
+- Custom development
+- SLA guarantees
+- Custom pricing based on needs
+
+## Shipping and Delivery
+
+### Shipping Options
+- Standard shipping: 5-7 business days (Free for orders over $50)
+- Express shipping: 2-3 business days ($15)
+- Overnight shipping: Next business day ($30)
+
+### International Shipping
+We ship to most countries worldwide. International shipping times vary by location:
+- Canada: 5-10 business days
+- Europe: 7-14 business days
+- Asia: 10-21 business days
+- Other regions: Contact support for estimate
+
+### Order Tracking
+Track your order by:
+1. Log in to your account
+2. Go to "Orders"
+3. Click on the order number
+4. View tracking information
+5. You'll also receive tracking updates via email

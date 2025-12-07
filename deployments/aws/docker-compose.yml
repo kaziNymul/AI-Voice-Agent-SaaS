@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # Customer bot container
+  bot:
+    build:
+      context: ../..
+      dockerfile: deployments/aws/Dockerfile.bot
+    image: customer-care-bot:aws
+    container_name: ${CUSTOMER_ID}_aws
+    ports:
+      - "${BOT_PORT}:8000"
+    environment:
+      # AWS Configuration (from .env)
+      USE_AWS_SERVICES: ${USE_AWS_SERVICES}
+      AWS_REGION: ${AWS_REGION}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      
+      # AWS Service Configuration
+      AWS_BEDROCK_MODEL_ID: ${AWS_BEDROCK_MODEL_ID}
+      BEDROCK_MAX_TOKENS: ${BEDROCK_MAX_TOKENS:-1024}
+      BEDROCK_TEMPERATURE: ${BEDROCK_TEMPERATURE:-0.7}
+      
+      AWS_TRANSCRIBE_LANGUAGE: ${AWS_TRANSCRIBE_LANGUAGE:-en-US}
+      AWS_POLLY_VOICE_ID: ${AWS_POLLY_VOICE_ID:-Joanna}
+      AWS_POLLY_ENGINE: ${AWS_POLLY_ENGINE:-neural}
+      
+      AWS_OPENSEARCH_ENDPOINT: ${AWS_OPENSEARCH_ENDPOINT}
+      AWS_OPENSEARCH_INDEX: ${AWS_OPENSEARCH_INDEX:-customer_qa}
+      
+      # Telegram
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      
+      # Customer ID
+      CUSTOMER_ID: ${CUSTOMER_ID}
+      
+      # Timeouts
+      BEDROCK_TIMEOUT: ${BEDROCK_TIMEOUT:-30}
+      AWS_TRANSCRIBE_TIMEOUT: ${AWS_TRANSCRIBE_TIMEOUT:-30}
+      AWS_POLLY_TIMEOUT: ${AWS_POLLY_TIMEOUT:-30}
+      
+    mem_limit: ${BOT_MEMORY_LIMIT:-256m}
+    restart: unless-stopped
+    networks:
+      - customer_care
+
+  # Elasticsearch (optional - if not using OpenSearch)
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: ${CUSTOMER_ID}_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    mem_limit: ${ES_MEMORY_LIMIT:-512m}
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    networks:
+      - customer_care
+    profiles:
+      - with-local-es
+
+networks:
+  customer_care:
+    name: ${NETWORK_NAME:-customer_care_network}
+    driver: bridge
+
+volumes:
+  es_data:
+    name: ${CUSTOMER_ID}_es_data

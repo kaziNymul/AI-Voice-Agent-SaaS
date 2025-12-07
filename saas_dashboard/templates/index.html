@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Customer Care Platform - Create Your Bot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .step {
+            opacity: 0.6;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .step.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .step h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+        
+        input[type="email"],
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        
+        .status.loading {
+            background: #fff3cd;
+            color: #856404;
+            display: block;
+        }
+        
+        .results {
+            display: none;
+        }
+        
+        .results.show {
+            display: block;
+        }
+        
+        .results h2 {
+            color: #28a745;
+        }
+        
+        .result-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .result-label {
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .result-value {
+            font-size: 1.1em;
+            color: #333;
+            word-break: break-all;
+        }
+        
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .radio-group input[type="radio"] {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .link-btn {
+            display: inline-block;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .link-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Customer Care</h1>
+            <p>Create your intelligent customer support bot in 3 easy steps</p>
+        </div>
+        
+        <!-- Step 1: Sign Up -->
+        <div class="card step active" id="step1">
+            <h2><span class="step-number">1</span>Create Your Account</h2>
+            <input type="email" id="email" placeholder="Your email address" required>
+            <input type="text" id="company" placeholder="Company name">
+            <input type="password" id="password" placeholder="Choose a password (min 6 characters)" required>
+            
+            <button onclick="signup()">Sign Up</button>
+            <div class="status" id="signup-status"></div>
+            
+            <a href="#" class="link-btn" onclick="showLogin()">Already have an account? Log in</a>
+        </div>
+        
+        <!-- Login Form (hidden initially) -->
+        <div class="card step" id="login-form" style="display:none;">
+            <h2>Log In</h2>
+            <input type="email" id="login-email" placeholder="Your email address">
+            <input type="password" id="login-password" placeholder="Password">
+            
+            <button onclick="login()">Log In</button>
+            <div class="status" id="login-status"></div>
+            
+            <a href="#" class="link-btn" onclick="showSignup()">Don't have an account? Sign up</a>
+        </div>
+        
+        <!-- Step 2: Upload Data -->
+        <div class="card step" id="step2">
+            <h2><span class="step-number">2</span>Upload Your Q&A Data</h2>
+            
+            <div class="info-box">
+                <strong>ℹ️ Data Format:</strong> Upload a CSV or JSON file with columns: <code>question</code> and <code>answer</code>
+                <br><br>
+                <strong>Example CSV:</strong><br>
+                <code>question,answer</code><br>
+                <code>What are your hours?,We're open Mon-Fri 9am-5pm</code>
+            </div>
+            
+            <input type="file" id="datafile" accept=".csv,.json">
+            <button onclick="uploadData()">Upload Data</button>
+            <div class="status" id="upload-status"></div>
+        </div>
+        
+        <!-- Step 3: Create Bot -->
+        <div class="card step" id="step3">
+            <h2><span class="step-number">3</span>Create Your Bot</h2>
+            
+            <input type="text" id="botname" placeholder="Bot name (e.g., Acme Support Bot)">
+            
+            <label style="margin-top: 15px; display: block; font-weight: 500;">Choose Platform:</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="telephony" value="telegram" checked>
+                    Telegram (Free)
+                </label>
+                <label>
+                    <input type="radio" name="telephony" value="twilio">
+                    Phone Number (Pro)
+                </label>
+            </div>
+            
+            <button onclick="createBot()">Create Bot (30 seconds)</button>
+            <div class="status" id="create-status"></div>
+        </div>
+        
+        <!-- Results -->
+        <div class="card results" id="results">
+            <h2>✅ Your Bot is Live!</h2>
+            
+            <div class="result-item">
+                <div class="result-label">Contact Method:</div>
+                <div class="result-value" id="contact-method">-</div>
+            </div>
+            
+            <div class="result-item">
+                <div class="result-label">Webhook URL:</div>
+                <div class="result-value" id="webhook-url">-</div>
+            </div>
+            
+            <div class="result-item">
+                <div class="result-label">Status:</div>
+                <div class="result-value" style="color: #28a745;">🟢 Active</div>
+            </div>
+            
+            <div class="info-box" style="margin-top: 20px;">
+                <strong>🎉 Congratulations!</strong> Your AI customer care bot is now live and ready to handle customer inquiries.
+                <br><br>
+                <strong>Next Steps:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Test your bot by sending it a message</li>
+                    <li>Monitor analytics in your dashboard</li>
+                    <li>Upgrade to Pro for more features</li>
+                </ul>
+            </div>
+            
+            <button onclick="location.reload()">Create Another Bot</button>
+        </div>
+    </div>
+    
+    <script>
+        // State management
+        let token = null;
+        let customerId = null;
+        
+        // Show/hide forms
+        function showLogin() {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('login-form').classList.add('active');
+        }
+        
+        function showSignup() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('step1').style.display = 'block';
+        }
+        
+        // Enable next step
+        function enableStep(stepNum) {
+            document.getElementById(`step${stepNum}`).classList.add('active');
+        }
+        
+        // Show status message
+        function showStatus(elementId, message, type) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.className = `status ${type}`;
+        }
+        
+        // Sign up
+        async function signup() {
+            const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showStatus('signup-status', 'Please fill in all required fields', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showStatus('signup-status', 'Password must be at least 6 characters', 'error');
+                return;
+            }
+            
+            showStatus('signup-status', 'Creating account...', 'loading');
+            
+            try {
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({email, company, password})
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    token = data.token;
+                    customerId = data.customer.id;
+                    showStatus('signup-status', '✅ Account created successfully!', 'success');
+                    enableStep(2);
+                    
+                    // Scroll to next step
+                    setTimeout(() => {
+                        document.getElementById('step2').scrollIntoView({behavior: 'smooth'});
+                    }, 500);
+                } else {
+                    showStatus('signup-status', '❌ ' + data.error, 'error');
+                }
+            } catch (error) {
+                showStatus('signup-status', '❌ Network error. Please try again.', 'error');
+            }
+        }
+        
+        // Log in
+        async function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (!email || !password) {
+                showStatus('login-status', 'Please fill in all fields', 'error');
+                return;
+            }
+            
+            showStatus('login-status', 'Logging in...', 'loading');
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({email, password})
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    token = data.token;
+                    customerId = data.customer_id;
+                    showStatus('login-status', '✅ Logged in successfully!', 'success');
+                    
+                    // Hide login, show steps
+                    document.getElementById('login-form').style.display = 'none';
+                    document.getElementById('step1').style.display = 'none';
+                    enableStep(2);
+                    document.getElementById('step2').scrollIntoView({behavior: 'smooth'});
+                } else {
+                    showStatus('login-status', '❌ ' + data.error, 'error');
+                }
+            } catch (error) {
+                showStatus('login-status', '❌ Network error. Please try again.', 'error');
+            }
+        }
+        
+        // Upload data
+        async function uploadData() {
+            if (!token) {
+                showStatus('upload-status', '❌ Please sign up first!', 'error');
+                return;
+            }
+            
+            const file = document.getElementById('datafile').files[0];
+            
+            if (!file) {
+                showStatus('upload-status', '❌ Please select a file', 'error');
+                return;
+            }
+            
+            showStatus('upload-status', 'Uploading...', 'loading');
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const response = await fetch(`/api/customers/${customerId}/upload-data`, {
+                    method: 'POST',
+                    headers: {'Authorization': `Bearer ${token}`},
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('upload-status', `✅ Uploaded ${data.row_count} Q&A pairs successfully!`, 'success');
+                    enableStep(3);
+                    
+                    setTimeout(() => {
+                        document.getElementById('step3').scrollIntoView({behavior: 'smooth'});
+                    }, 500);
+                } else {
+                    showStatus('upload-status', '❌ ' + data.error, 'error');
+                }
+            } catch (error) {
+                showStatus('upload-status', '❌ Upload failed. Please try again.', 'error');
+            }
+        }
+        
+        // Create bot
+        async function createBot() {
+            if (!token) {
+                showStatus('create-status', '❌ Please complete previous steps', 'error');
+                return;
+            }
+            
+            const botName = document.getElementById('botname').value || 'My Support Bot';
+            const telephonyType = document.querySelector('input[name="telephony"]:checked').value;
+            
+            showStatus('create-status', 'Creating bot... This may take 30 seconds ⏳', 'loading');
+            
+            try {
+                const response = await fetch(`/api/customers/${customerId}/create-bot`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        bot_name: botName,
+                        telephony_type: telephonyType
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('create-status', '✅ Bot created successfully!', 'success');
+                    
+                    // Show results
+                    const contactMethod = data.bot.phone_number || `@${data.bot.bot_username}`;
+                    document.getElementById('contact-method').textContent = contactMethod;
+                    document.getElementById('webhook-url').textContent = data.bot.webhook_url;
+                    document.getElementById('results').classList.add('show');
+                    
+                    setTimeout(() => {
+                        document.getElementById('results').scrollIntoView({behavior: 'smooth'});
+                    }, 500);
+                } else {
+                    showStatus('create-status', '❌ ' + data.error, 'error');
+                }
+            } catch (error) {
+                showStatus('create-status', '❌ Bot creation failed. Please try again.', 'error');
+            }
+        }
+    </script>
+</body>
+</html>

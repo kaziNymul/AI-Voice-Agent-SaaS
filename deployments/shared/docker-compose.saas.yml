@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database for customer/bot metadata
+  postgres:
+    image: postgres:15
+    container_name: saas_postgres
+    environment:
+      POSTGRES_DB: saas_db
+      POSTGRES_USER: saas_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - customer_care_network
+
+  # Elasticsearch for customer Q&A data
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    container_name: saas_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    restart: unless-stopped
+    networks:
+      - customer_care_network
+
+  # SaaS Dashboard (Flask app)
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: saas_dashboard
+    env_file:
+      - .env
+    volumes:
+      - ./saas_dashboard:/app/saas_dashboard
+      - ./automation:/app/automation
+      - uploads_data:/app/uploads
+      - /var/run/docker.sock:/var/run/docker.sock  # For managing customer containers
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+      - elasticsearch
+    restart: unless-stopped
+    networks:
+      - customer_care_network
+
+  # Nginx reverse proxy
+  nginx:
+    image: nginx:latest
+    container_name: saas_nginx
+    volumes:
+      - ./nginx/saas-platform.conf:/etc/nginx/conf.d/default.conf
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - dashboard
+    restart: unless-stopped
+    networks:
+      - customer_care_network
+
+volumes:
+  postgres_data:
+  elasticsearch_data:
+  uploads_data:
+
+networks:
+  customer_care_network:
+    driver: bridge
